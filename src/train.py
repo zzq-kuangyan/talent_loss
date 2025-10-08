@@ -23,17 +23,19 @@ def feature_engineering(data):
         else:
             return 0
     x_dummies['OverTime']=x_dummies.OverTime.map(dataMapping)
-    scaler = StandardScaler()
-    x_train = scaler.fit_transform(x_dummies)
 
 
-    return x_train,y
+
+    return x_dummies,y
 
 
 x_train,y_train = feature_engineering(data)
+x_test,y_test = feature_engineering(test_data)
+scaler = StandardScaler()
+x_train = scaler.fit_transform(x_train)
+x_test = scaler.transform(x_test)
 # pd.DataFrame(x_train).boxplot()
 # pyplot.show()
-x_test,y_test = feature_engineering(test_data)
 
 def CreatModel(x,y):
     model = LogisticRegression()
